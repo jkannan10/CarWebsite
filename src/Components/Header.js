@@ -1,22 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import { selectCars } from "../features/car/carSlice";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 function Header() {
   const [burgerStatus, setBurgerStatus] = useState(false);
+  const cars = useSelector(selectCars);
+  console.log(cars);
   return (
     <Container>
       <a>
         <img src="/images/logo.svg" alt="" />
       </a>
-      <Menu>
-        <a href="#">Model S</a>
-
-        <a href="#">Model 3</a>
-
-        <a href="#">Model X</a>
-
-        <a href="#">Model Y</a>
-      </Menu>
+      <Menu>{cars && cars.map((car, index) => <a href="#">{car}</a>)}</Menu>
       <RightMenu>
         <a href="">Shop</a>
         <a href="#">Tesla Account</a>
@@ -28,30 +24,12 @@ function Header() {
         <CustomClose onClick={() => setBurgerStatus(false)}>
           <img src="/images/close.png" alt="" />
         </CustomClose>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Used-in Inventory</a>
-        </li>
-        <li>
-          <a href="#">Cyber Truck</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
-        <li>
-          <a href="#">Existing Inventory</a>
-        </li>
+        {cars &&
+          cars.map((car, index) => (
+            <li>
+              <a href="#">{car}</a>
+            </li>
+          ))}
       </BurgerNav>
     </Container>
   );
